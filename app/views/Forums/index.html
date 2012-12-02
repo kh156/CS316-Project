@@ -1,0 +1,74 @@
+#{extends 'main.html' /}
+
+<h1 id="title">Textbooks</h1>
+<p class="light">
+	<strong>
+
+	</strong>
+</p>
+
+<table id="forums-list">
+	<thead>
+		<tr>
+			<th class="main">Textbook</th>
+			<th class="infos">Last post</th>
+		</tr>
+	</thead>
+	#{list items:forums, as:'forum'}
+		<tr>
+			<td class="main">
+				<a href="@{Forums.show(forum.id)}">${forum.name}</a>
+				<p class="light">
+<!--  					#{pluralize size:forum.postsCount, word:'post' /}  -->
+					ISBN: ${forum.ISBN} <br>
+					Author: ${forum.author}
+				</p>
+				${forum.description}
+			</td>
+			<td class="infos">
+				#{if forum.lastPost}
+					${forum.lastPost.postedAt.since()} <br /> 
+					by <strong>${forum.lastPost.postedBy.name}</strong> 
+					#{if connected?.admin}
+						(<a href="@{Topics.show(forum.id, forum.lastPost.topic.id, forum.lastPost.topic.postsCount.page(pageSize))}">view</a>)
+					#{/if}
+				#{/if}
+				#{else}
+					No post
+				#{/else}
+			</td>
+		</tr>
+	#{/list}
+</table>
+
+#{if connected?.admin}
+	<div id="youreadmin">
+		Administrator options
+	</div>
+
+	<div class="box">
+		<h2>Create a new textbook</h2>
+		<form action="@{Forums.create}" method="POST">
+			<label>Name</label>
+			<input type="text" name="name" value="${flash.name}" id="name" /> 
+			<span class="error">#{error 'name' /}</span>
+			
+			<label>ISBN</label>
+			<input type="text" name="ISBN" size="10" value="${flash.ISBN}" id="ISBN" /> 
+			<span class="error">#{error 'ISBN' /}</span>
+			
+			<label>Author</label>
+			<input type="text" name="author" value="${flash.author}" id="author" /> 
+			<span class="error">#{error 'author' /}</span>
+			
+			<label for="description">Textbook description (255 maximum)</label>
+			<textarea name="description" rows="6" size="255" id="description">${flash.description}</textarea>
+			<span class="error">#{error 'description' /}</span>
+		
+			<hr />
+			<input type="submit" value="Add" id="addForum" />
+		</form>
+	</div>
+#{/if}
+	
+

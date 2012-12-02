@@ -1,0 +1,88 @@
+#{extends 'main.html' /}
+
+<div id="breadcrumb">
+	<a href="@{Forums.index}">Textbooks</a> →
+</div>
+
+<h1 id="title">${forum.name}</h1>
+<p class="light">
+	<strong>
+	</strong>
+</p>
+
+<!--
+#{if connected}
+	<div id="newTopic">
+		<a class="action" href="@{Topics.post(forum.id)}">Add a new problem</a>
+	</div>
+#{/if}
+-->
+
+#{pagination page:page ?: 1, size:forum.topicsCount /}
+
+<table id="topics-list">
+	<thead>
+		<tr>
+			<th>Problems</th>
+			<th>Posts</th>
+			<th>Views</th>
+			<th>Last Post</th>
+		</tr>
+	</thead>
+	#{list items:forum.getTopics(page ?: 1, pageSize), as:'topic'}
+		<tr>
+			<td class="main">
+				<a href="@{Topics.show(topic.forum.id, topic.id)}">${topic.subject}</a>
+				#{if topic.postsCount > pageSize}
+					&nbsp;<a class="last" href="@{Topics.show(topic.forum.id, topic.id, topic.postsCount.page(pageSize))}">last page</a>
+				#{/if}
+			</td>
+			<td class="infos count">
+				${topic.postsCount}
+			</td>
+			<td class="infos count">
+				${topic.views}
+			</td>
+			<td class="infos">
+			#{if topic.lastPost}
+				${topic.lastPost.postedAt.since()} <br /> 
+				by <strong>${forum.lastPost.postedBy.name}</strong>
+				#{if connected?.admin} 
+					(<a href="@{Topics.show(topic.forum.id, topic.id, topic.postsCount.page(pageSize))}">view</a>)
+				#{/if}
+			#{/if}
+			#{else}
+				No post
+			#{/else}
+			</td>
+		</tr>
+	#{/list}
+</table>
+
+#{if connected?.admin}
+	<div id="youreadmin">
+		Administrator options
+	</div>
+	
+	<div class="box">
+		<h2>Add a new problem</h2>
+		<form action="@{Topics.post(forum.id)}" method="GET">
+			<input type="submit" value="Add" id="addIt" />
+		</form>		
+	</div>
+	
+	<div class="box">
+		<h2>Edit this textbook</h2>
+		<form action="@{Forums.edit(forum.id)}" method="POST">
+			<input type="submit" value="Edit" id="editIt" />
+		</form>
+	</div>
+	
+	<div class="box">		
+		<h2>Delete this textbook</h2>
+		<form action="@{Forums.delete(forum.id)}" method="POST">
+			<input type="submit" value="Delete it !" id="deleteIt" />
+		</form>		
+	</div>
+#{/if}
+

@@ -1,0 +1,43 @@
+#{extends 'main.html' /}
+
+<div id="breadcrumb">
+	<a href="@{Forums.index}">Textbooks</a> → <a href="@{Forums.show(topic.forum.id)}">${topic.forum.name}</a>
+</div>
+
+<h1 id="title">${topic.subject}</h1>
+<br>
+<div class="box">
+	<h2>${topic.statement}</h2>
+</div>	
+<br>
+<p class="light">
+	<strong>
+		#{pluralize size:topic.postsCount, word:'post' /} by #{pluralize size:topic.voicesCount, word:'user' /}
+	</strong>
+</p>
+
+#{if connected}
+	<div id="newTopic">
+		<a class="action" href="@{Topics.reply(topic.forum.id, topic.id)}">Post to this problem</a>
+	</div>
+#{/if}
+
+#{pagination page:page ?: 1, size:topic.postsCount /}
+
+#{list items:topic.getPosts(page ?: 1, pageSize), as:'post'}
+	#{showPost post /}
+#{/list}
+
+
+#{if connected?.admin}
+	<div id="youreadmin">
+		Administrator options
+	</div>
+
+	<div class="box">
+		<h2>Delete this problem</h2>
+		<form action="@{Topics.delete(topic.forum.id, topic.id)}" method="POST">
+			<input type="submit" value="Delete it !" id="deleteIt" />
+		</form>
+	</div>	
+#{/if}
