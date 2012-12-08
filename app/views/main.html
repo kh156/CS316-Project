@@ -24,6 +24,14 @@
 						Or if you already have an account, just <a href="@{Application.login}">Login</a>.
 					</p>
 				#{/else}
+				
+				<form action="@{Forums.results()}" method="GET">					
+					Title<input type="radio" name="category" value="Name" checked />
+					ISBN<input type="radio" name="category" value="ISBN" />
+					Author<input type="radio" name="category" value="Author" /><br>
+					<input type="text" name="query" />
+					<input type="submit" value="Search" />	
+				</form>
 		
 				<ul id="menu">
 					<li><a class="${request?.controller == 'Forums' || request?.controller == 'Topics' ? 'selected' : ''}" href="@{Forums.index}">Textbooks</a></li>

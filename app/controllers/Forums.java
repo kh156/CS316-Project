@@ -8,11 +8,27 @@ import models.*;
 
 public class Forums extends Application {
 
-    public static void index() {
+    public static void index() { 
         List forums = Forum.findAll();
         long topicsCount = Topic.count();
         long postsCount = Post.count();
         render(forums, topicsCount, postsCount);
+    }
+    
+    public static void results(String query, String category) {
+    	Set s = new HashSet();
+    	if (category.equals("ISBN")) {
+    		List forums = Forum.find("byISBN", query).fetch();
+    		render(forums);
+    		return;
+    	} else {
+    		String[] keywords = query.split("\\s+");
+    		for (String key : keywords) {
+    			s.addAll(Forum.find("by" + category + "Like", "%" + key + "%").fetch());
+    		}
+    	} 
+    	List forums = new ArrayList(s);
+    	render(forums);
     }
 
     @Secure(admin = true)

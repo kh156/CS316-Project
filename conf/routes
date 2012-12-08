@@ -4,6 +4,7 @@
 
 # Home
 GET		/																Forums.index
+GET		/results														Forums.results
 
 # Registration/Authentication
 GET		/signup															Application.signup

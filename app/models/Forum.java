@@ -28,9 +28,11 @@ public class Forum extends Model {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "forum")
     public List<Topic> topics;
     
+    private int hashCode;    
 
     public Forum(String name, String ISBN, String author, String description) {
         update(name, ISBN, author, description);
+        computeHashCode();
         create();
     }
     
@@ -68,5 +70,19 @@ public class Forum extends Model {
         return Post.find("topic.forum = ? order by postedAt desc", this).first();
     }
     
+    public boolean equals(Object o) {
+    	if (o instanceof Forum) {
+    		return o.hashCode() == hashCode;
+    	}
+    	return false;
+    }
+    
+    private void computeHashCode() {
+    	hashCode = Integer.parseInt(ISBN);
+    }
+    
+    public int hashCode() {
+    	return hashCode;
+    }
 }
 
