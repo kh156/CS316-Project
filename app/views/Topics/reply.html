@@ -11,7 +11,8 @@
 
 <form id="post" action="@{Topics.createReply(topic.forum.id, topic.id)}" method="POST" accept-charset="${_response_encoding}">
 	<p>
-		<textarea name="content" rows="8" cols="40" id="contentText"></textarea>
+		<textarea name="content" rows="8" cols="40" id="contentText">${flash.content}</textarea>
+		<span class="error">#{error 'content' /}</span>
 	</p>
 	<p class="buttons">
 		<input type="submit" value="Post" id="postReply" /> or <a class="action" href="@{Topics.show(topic.forum.id, topic.id)}">cancel</a>

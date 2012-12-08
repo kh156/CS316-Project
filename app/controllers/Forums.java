@@ -15,21 +15,8 @@ public class Forums extends Application {
         render(forums, topicsCount, postsCount);
     }
 
-//    @Secure(admin = true)
-//    public static void create(@Required String name, String description) {
-//        if (validation.hasErrors()) {
-//            validation.keep();
-//            params.flash();
-//            flash.error("Please correct these errors !");
-//            index();
-//        }
-//        Forum forum = new Forum(name, description);
-//        forum.save();
-//        index();
-//    }
-
     @Secure(admin = true)
-    public static void create(@Required String name, @Required String ISBN, @Required String author, @MaxSize(255) String description) {
+    public static void create(@Required String name, @Required String ISBN, @Required String author, @MaxSize(500) String description) {
         if (validation.hasErrors()) {
             validation.keep();
             params.flash();
@@ -42,7 +29,7 @@ public class Forums extends Application {
     }
 
     @Secure(admin = true)
-    public static void update(Long forumId, @Required String name, @Required String ISBN, @Required String author, @MaxSize(255) String description) {
+    public static void update(Long forumId, @Required String name, @Required String ISBN, @Required String author, @MaxSize(500) String description) {
         if (validation.hasErrors()) {
             validation.keep();
             params.flash();

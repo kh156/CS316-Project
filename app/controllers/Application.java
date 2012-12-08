@@ -11,7 +11,7 @@ public class Application extends Controller {
 
     static Integer pageSize = Integer.parseInt(Play.configuration.getProperty("forum.pageSize", "10"));
     
-    // ~~~~~~~~~~~~ @Before interceptors
+    // @Before interceptors
     
     @Before
     static void globals() {
@@ -28,7 +28,7 @@ public class Application extends Controller {
             }
         }
     }
-    // ~~~~~~~~~~~~ Actions
+
     
     public static void signup() {
         render();
@@ -44,7 +44,7 @@ public class Application extends Controller {
         User user = new User(email, password, name);
         try {
             if (Notifier.welcome(user)) {
-                flash.success("Your account is created. Please check your emails ...");
+                flash.success("Your account is created! Please check email...");
                 login();
             }
         } catch (Exception e) {
@@ -75,15 +75,14 @@ public class Application extends Controller {
             flash.put("email", email);
             login();
         } 
-//        else if (user.needConfirmation != null) {
-//            flash.error("This account is not confirmed");
-//            flash.put("notconfirmed", user.needConfirmation);
-//            flash.put("email", email);
-//            login();
-//        }
+        else if (user.needConfirmation != null) {
+            flash.error("This account is not confirmed");
+            flash.put("notconfirmed", user.needConfirmation);
+            flash.put("email", email);
+            login();
+        }
         connect(user);
         flash.success("Welcome back %s !", user.name);
-//        Users.show(user.id);
         Forums.index();
     }
 
@@ -110,7 +109,7 @@ public class Application extends Controller {
         login();
     }
     
-    // ~~~~~~~~~~~~ Some utils
+    // Some utils
     
     static void connect(User user) {
         session.put("logged", user.id);

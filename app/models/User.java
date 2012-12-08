@@ -23,7 +23,6 @@ public class User extends Model {
     
     public String needConfirmation;
     
-    // ~~~~~~~~~~~~ 
     
     public User(String email, String password, String name) {
         this.email = email;
@@ -33,7 +32,6 @@ public class User extends Model {
         create();
     }
     
-    // ~~~~~~~~~~~~ 
     
     public boolean checkPassword(String password) {
         return passwordHash.equals(Codec.hexMD5(password));
@@ -43,7 +41,6 @@ public class User extends Model {
         return email.equals(Play.configuration.getProperty("forum.adminEmail", ""));
     }
     
-    // ~~~~~~~~~~~~ 
     
     public List<Post> getRecentsPosts() {
         return Post.find("postedBy = ? order by postedAt", this).fetch(1, 10);
@@ -57,7 +54,6 @@ public class User extends Model {
         return Post.count("select count(distinct t) from Topic t, Post p, User u where p.postedBy = ?1 and p.topic = t", this);
     }
     
-    // ~~~~~~~~~~~~ 
     
     public static User findByEmail(String email) {
         return find("email", email).first();

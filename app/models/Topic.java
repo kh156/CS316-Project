@@ -1,6 +1,9 @@
 package models;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Type;
+
 import java.util.*;
 
 import play.db.jpa.*;
@@ -13,11 +16,14 @@ public class Topic extends Model implements Comparable<Topic>{
     public String subject;
     
     @Required
-    public int sectionIdx;
+    public String sectionIdx;
     
     @Required
-    public int problemIdx;
+    public String problemIdx;
     
+    @Type(type = "org.hibernate.type.TextType")
+    @Lob
+    @Required
     public String statement;
     
     public Integer views = 0;
@@ -28,39 +34,25 @@ public class Topic extends Model implements Comparable<Topic>{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "topic")
     public List<Post> posts;
     
-    // ~~~~~~~~~~~~ 
     
-//    public Topic(Forum forum, User by, String subject, String content) {
-//        this.forum = forum;
-//        this.subject = subject;
-//        
-//        this.sectionIdx = Integer.parseInt(subject.split("/")[0]);
-//        this.problemIdx = Integer.parseInt(subject.split("/")[1]);
-//        
-//        create();
-//        new Post(this, by, content);
-//    }
-    
-    public Topic(Forum forum, User by, int sectionIdx, int problemIdx, String content) {
+    public Topic(Forum forum, User by, String sectionIdx, String problemIdx, String content) {
         this.forum = forum;        
         this.sectionIdx = sectionIdx;
         this.problemIdx = problemIdx;
-        this.subject = String.format("%d.%d", sectionIdx, problemIdx);
+        this.subject = String.format("%s.%s", sectionIdx, problemIdx);
         this.statement = content;
         create();
     }
 
-    
-    // ~~~~~~~~~~~~ 
-    
+        
     public Post reply(User by, String content) {
         return new Post(this, by, content);
     }
     
-    // ~~~~~~~~~~~~ 
     
     public List<Post> getPosts(int page, int pageSize) {
-        return Post.find("topic", this).fetch(page, pageSize);
+        List<Post> list = Post.find("topic = ? order by likesNum desc, dislikesNum asc", this).fetch(page, pageSize);
+        return list;
     }
 
     public Long getPostsCount() {
@@ -77,11 +69,11 @@ public class Topic extends Model implements Comparable<Topic>{
 
     @Override
     public int compareTo(Topic o) {
-        if (this.sectionIdx != o.sectionIdx) {
-            return (this.sectionIdx < o.sectionIdx) ? -1 : 1; 
+        if (!this.sectionIdx.equals(o.sectionIdx)) {
+            return this.sectionIdx.compareTo(o.sectionIdx); 
         }
         else 
-            return (this.problemIdx < o.problemIdx) ? -1 : 1;
+            return this.problemIdx.compareTo(o.problemIdx);
         
     }
     

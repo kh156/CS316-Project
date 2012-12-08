@@ -20,22 +20,8 @@ public class Topics extends Application {
         notFoundIfNull(forum);
         render(forum);
     }
-
-//    @Secure
-//    public static void create(Long forumId, @Required String subject, String content) {
-//        if (validation.hasErrors()) {
-//            validation.keep();
-//            params.flash();
-//            flash.error("Please correct these errors !");
-//            post(forumId);
-//        }
-//        Forum forum = Forum.findById(forumId);
-//        notFoundIfNull(forum);
-//        Topic newTopic = forum.newTopic(connectedUser(), subject, content);
-//        show(forumId, newTopic.id, null);
-//    }
     
-    @Secure
+    @Secure(admin = true)
     public static void create(Long forumId, @Required String sectionIdx, @Required String problemIdx, @Required String content) {
         if (validation.hasErrors()) {
             validation.keep();
@@ -45,7 +31,7 @@ public class Topics extends Application {
         }
         Forum forum = Forum.findById(forumId);
         notFoundIfNull(forum);
-        Topic newTopic = forum.newTopic(connectedUser(), Integer.parseInt(sectionIdx), Integer.parseInt(problemIdx), content);
+        Topic newTopic = forum.newTopic(connectedUser(), sectionIdx, problemIdx, content);
         show(forumId, newTopic.id, null);
     }
 
@@ -58,7 +44,13 @@ public class Topics extends Application {
     }
 
     @Secure
-    public static void createReply(Long forumId, Long topicId, String content) {
+    public static void createReply(Long forumId, Long topicId, @Required String content) {
+        if (validation.hasErrors()) {
+            validation.keep();
+            params.flash();
+            flash.error("Please correct these errors !");
+            reply(forumId, topicId);
+        }
         Topic topic = Topic.findById(topicId);
         notFoundIfNull(topic);
         topic.reply(connectedUser(), content);
@@ -72,6 +64,22 @@ public class Topics extends Application {
         topic.delete();
         flash.success("The topic has been deleted");
         Forums.show(forumId, null);
+    }
+    
+    @Secure
+    public static void likes(Long forumId, Long topicId, Long postId) {
+        Post post = Post.findById(postId);
+        post.like(connectedUser());
+        post.save();
+        show(forumId, topicId, null);
+    }
+    
+    @Secure
+    public static void dislikes(Long forumId, Long topicId, Long postId) {
+        Post post = Post.findById(postId);
+        post.dislike(connectedUser());
+        post.save();
+        show(forumId, topicId, null);
     }
 }
 

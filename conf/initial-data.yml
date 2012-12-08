@@ -1,0 +1,66 @@
+# dummy data
+
+User(admin):
+    email:          admin@cs316project.com
+    passwordHash:   5ebe2294ecd0e0f08eab7690d2a6ee69
+    name:           admin
+    isAdmin:        true
+
+User(kuang):
+    email:          kh156@duke.edu
+    passwordHash:   5ebe2294ecd0e0f08eab7690d2a6ee69
+    name:           Kuang
+    isAdmin:        no
+    
+    
+Forum(f1):
+    name:           Introduction To Algorithm
+    ISBN:           0262033844
+    author:         Thomas H. Cormen
+    description:    >
+                    There are books on algorithms that are rigorous but incomplete and others that cover masses of material but lack rigor. Introduction to Algorithms combines rigor and comprehensiveness.
+                    
+                    The book covers a broad range of algorithms in depth, yet makes their design and analysis accessible to all levels of readers. Each chapter is relatively self-contained and can be used as a unit of study. The algorithms are described in English and in a pseudocode designed to be readable by anyone who has done a little programming. The explanations have been kept elementary without sacrificing depth of coverage or mathematical rigor.
+
+
+Topic(t1):
+    forum:          f1
+    subject:        1.1
+    sectionIdx:     1
+    problemIdx:     1
+    views:          0
+    statement:      >
+                    Complexity of Dijkstra?
+
+Topic(t2):
+    forum:          f1
+    subject:        1.2
+    sectionIdx:     1
+    problemIdx:     2
+    views:          100
+    statement:      >
+                    How to find a cycle inside a directional graph?
+
+
+Post(p1):
+    postedAt:       2010-10-10
+    postedBy:       admin
+    topic:          t1
+    likes:          
+    dislikes:       
+    likesNum:       
+    dislikesNum:    
+    content:        >
+                    That's a very good question
+
+Post(p2):
+    postedAt:       2009-01-15
+    postedBy:       kuang
+    topic:          t1
+    likes:          
+    dislikes:       
+    likesNum:       
+    dislikesNum:    
+    content:        >
+                    Hello World!
+

@@ -1,6 +1,9 @@
 package models;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Type;
+
 import java.util.*;
 
 import play.db.jpa.*;
@@ -18,26 +21,20 @@ public class Forum extends Model {
     @Required
     public String author;
     
-    @MaxSize(255)
+    @Type(type = "org.hibernate.type.TextType")
+    @Lob
     public String description;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "forum")
     public List<Topic> topics;
     
-    // ~~~~~~~~~~~~ 
-    
-//    public Forum(String name, String description) {
-//        this.name = name;
-//        this.description = description;
-//        create();
-//    }
 
     public Forum(String name, String ISBN, String author, String description) {
         update(name, ISBN, author, description);
         create();
     }
     
-    // ~~~~~~~~~~~~ 
+    
     public void update(String name, String ISBN, String author, String description) {
         this.name = name;
         this.ISBN = ISBN;
@@ -45,21 +42,13 @@ public class Forum extends Model {
         this.description = description;
     }
     
-    // ~~~~~~~~~~~~ 
     
-//    public Topic newTopic(User by, String subject, String content) {
-//        Topic t = new Topic(this, by, subject, content);
-//        this.refresh();
-//        return t;
-//    }
-    
-    public Topic newTopic(User by, int sectionIdx, int problemIdx, String content) {
+    public Topic newTopic(User by, String sectionIdx, String problemIdx, String content) {
         Topic t = new Topic(this, by, sectionIdx, problemIdx, content);
         this.refresh();
         return t;
     }
     
-    // ~~~~~~~~~~~~ 
     
     public long getTopicsCount() {
         return Topic.count("forum", this);
@@ -70,8 +59,8 @@ public class Forum extends Model {
     }
 
     public List<Topic> getTopics(int page, int pageSize) {
-        List<Topic> list = Topic.find("forum", this).fetch(page, pageSize); 
-        Collections.sort(list);
+        List<Topic> list = Topic.find("forum = ? order by sectionIdx, problemIdx", this).fetch(page, pageSize); 
+//        Collections.sort(list);
         return list;
     }
 

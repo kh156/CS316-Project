@@ -31,6 +31,7 @@
 	<p>
 		<label>Problem statement</label>
 		<textarea name="content" rows="8" cols="40" id="contentText">${flash.content}</textarea>
+		<span class="error">#{error 'content' /}</span>
 	</p>
 	<p>
 		<input type="submit" value="Create this problem" id="postTopic" /> or <a class="action" href="@{Forums.show(forum.id)}">cancel</a>

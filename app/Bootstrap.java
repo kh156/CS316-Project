@@ -9,7 +9,7 @@ public class Bootstrap extends Job {
  
     public void doJob() {
         // Check if the database is empty
-        System.out.println("I'm here!!!!");
+        System.out.println("Loading initial data!!!!");
 
         if(User.count() == 0) {
             Fixtures.loadModels("initial-data.yml");
