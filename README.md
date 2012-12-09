@@ -1,6 +1,6 @@
 CS316-Project
-<<<<<<< HEAD
-=============
+
+Kuang Han
 Erick Gonzalez
 Eric Hu
 
