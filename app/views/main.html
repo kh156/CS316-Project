@@ -25,7 +25,7 @@
 					</p>
 				#{/else}
 				
-				<form action="@{Forums.results()}" method="GET">					
+				<form action="@{Textbooks.results()}" method="GET">					
 					Title<input type="radio" name="category" value="Name" checked />
 					ISBN<input type="radio" name="category" value="ISBN" />
 					Author<input type="radio" name="category" value="Author" /><br>
@@ -34,7 +34,7 @@
 				</form>
 		
 				<ul id="menu">
-					<li><a class="${request?.controller == 'Forums' || request?.controller == 'Topics' ? 'selected' : ''}" href="@{Forums.index}">Textbooks</a></li>
+					<li><a class="${request?.controller == 'Forums' || request?.controller == 'Topics' ? 'selected' : ''}" href="@{Textbooks.index}">Textbooks</a></li>
 					
 					#{if connected?.admin}
 						<li><a class="${request?.controller == 'Users' ? 'selected' : ''}" href="@{Users.index}">Users</a></li>

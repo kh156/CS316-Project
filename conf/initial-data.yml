@@ -13,7 +13,7 @@ User(kuang):
     isAdmin:        no
     
     
-Forum(f1):
+Textbook(f1):
     name:           Introduction To Algorithm
     ISBN:           0262033844
     author:         Thomas H. Cormen
@@ -23,7 +23,7 @@ Forum(f1):
                     The book covers a broad range of algorithms in depth, yet makes their design and analysis accessible to all levels of readers. Each chapter is relatively self-contained and can be used as a unit of study. The algorithms are described in English and in a pseudocode designed to be readable by anyone who has done a little programming. The explanations have been kept elementary without sacrificing depth of coverage or mathematical rigor.
 
 
-Topic(t1):
+Problem(t1):
     forum:          f1
     subject:        1.1
     sectionIdx:     1
@@ -32,7 +32,7 @@ Topic(t1):
     statement:      >
                     Complexity of Dijkstra?
 
-Topic(t2):
+Problem(t2):
     forum:          f1
     subject:        1.2
     sectionIdx:     1
@@ -43,17 +43,6 @@ Topic(t2):
 
 
 Post(p1):
-    postedAt:       2010-10-10
-    postedBy:       admin
-    topic:          t1
-    likes:          
-    dislikes:       
-    likesNum:       
-    dislikesNum:    
-    content:        >
-                    That's a very good question
-
-Post(p2):
     postedAt:       2009-01-15
     postedBy:       kuang
     topic:          t1
@@ -64,3 +53,13 @@ Post(p2):
     content:        >
                     Hello World!
 
+Post(p2):
+    postedAt:       2010-10-10
+    postedBy:       admin
+    topic:          t1
+    likes:          
+    dislikes:       
+    likesNum:       
+    dislikesNum:    
+    content:        >
+                    That's a very good question

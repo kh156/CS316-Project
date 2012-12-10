@@ -8,6 +8,7 @@
 #{pagination page:page ?: 1, size:nbUsers /}
 
 <table id="users-list">
+#{if connected?.admin}
 	<thead>
 		<tr>
 			<th class="main">User name</th>
@@ -24,4 +25,8 @@
 			</td>
 		</tr>
 	#{/list}
+#{/if}
+#{else}
+	Authorization required to browse the following
+#{/else}
 </table>

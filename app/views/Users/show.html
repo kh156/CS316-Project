@@ -12,11 +12,16 @@
 </p>
 
 #{if user.recentsPosts}
+#{if connected?.admin}
 	<h2>Recents posts ...</h2>
 
 	#{list items:user.recentsPosts, as:'post'}
 		#{showPost arg:post, showTopic:true /}
 	#{/list}
+#{/if}
+#{else}
+	Authorization required to browse the following
+#{/else}
 #{/if}
 
 #{else}

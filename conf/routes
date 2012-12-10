@@ -3,8 +3,8 @@
 # ~~~~
 
 # Home
-GET		/																Forums.index
-GET		/results														Forums.results
+GET		/																Textbooks.index
+GET		/results														Textbooks.results
 
 # Registration/Authentication
 GET		/signup															Application.signup
@@ -15,19 +15,19 @@ GET		/logout															Application.logout
 GET		/signup/{uuid}													Application.confirmRegistration
 GET		/confirmation/{uuid}											Application.resendConfirmation
 
-# Forums
-POST	/forums															Forums.create
-GET		/forums/{<[0-9]+>forumId}										Forums.show
-POST	/forums/{<[0-9]+>forumId}/delete								Forums.delete
-POST	/forums/{<[0-9]+>forumId}/edit									Forums.edit
+# Textbooks
+POST	/textbooks															Textbooks.create
+GET		/textbooks/{<[0-9]+>forumId}										Textbooks.show
+POST	/textbooks/{<[0-9]+>forumId}/delete								Textbooks.delete
+GET		/textbooks/{<[0-9]+>forumId}/edit									Textbooks.edit
 
-# Topics
-GET		/forums/{<[0-9]+>forumId}/newTopic								Topics.post			
-POST	/forums/{<[0-9]+>forumId}/topics								Topics.create
-GET		/forums/{<[0-9]+>forumId}/topics/{<[0-9]+>topicId}				Topics.show		
-GET		/forums/{<[0-9]+>forumId}/topics/{<[0-9]+>topicId}/reply		Topics.reply
-POST 	/forums/{<[0-9]+>forumId}/topics/{<[0-9]+>topicId}				Topics.createReply	
-POST 	/forums/{<[0-9]+>forumId}/topics/{<[0-9]+>topicId}/delete		Topics.delete			
+# Problems
+GET		/textbooks/{<[0-9]+>forumId}/newProblem								Problems.post			
+POST	/textbooks/{<[0-9]+>forumId}/problems								Problems.create
+GET		/textbooks/{<[0-9]+>forumId}/problems/{<[0-9]+>topicId}				Problems.show		
+GET		/textbooks/{<[0-9]+>forumId}/problems/{<[0-9]+>topicId}/reply		Problems.reply
+POST 	/textbooks/{<[0-9]+>forumId}/problems/{<[0-9]+>topicId}				Problems.createReply	
+POST 	/textbooks/{<[0-9]+>forumId}/problems/{<[0-9]+>topicId}/delete		Problems.delete			
 
 # Users
 GET		/users															Users.index

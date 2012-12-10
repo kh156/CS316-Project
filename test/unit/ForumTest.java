@@ -15,12 +15,12 @@ public class ForumTest extends UnitTest {
 
     @Test
     public void countObjects() {
-        assertEquals(2, Forum.count());
+        assertEquals(2, Textbook.count());
     }
 
     @Test
     public void tryHelpForum() {
-        Forum help = Forum.find("byName", "Play help").first();
+        Textbook help = Textbook.find("byName", "Play help").first();
         assertNotNull(help);
         assertEquals(3, help.topics.size());
         assertEquals(3, help.getTopicsCount());
@@ -28,7 +28,7 @@ public class ForumTest extends UnitTest {
 
     @Test
     public void tryPagination() {
-        Forum help = Forum.find("byName", "Play help").first();
+        Textbook help = Textbook.find("byName", "Play help").first();
         assertNotNull(help);
         assertEquals(2, help.getTopics(1, 2).size());
         assertEquals(3, help.getTopics(1, 20).size());
@@ -41,9 +41,9 @@ public class ForumTest extends UnitTest {
 
     @Test
     public void newForum() {
-        Forum test = new Forum("Test", "Yop");
-        assertEquals(3, Forum.count());
-        assertNotNull(Forum.find("byName", "Test").first());
-        assertEquals(test, Forum.find("byName", "Test").first());
+        Textbook test = new Textbook("Test", "Yop");
+        assertEquals(3, Textbook.count());
+        assertNotNull(Textbook.find("byName", "Test").first());
+        assertEquals(test, Textbook.find("byName", "Test").first());
     }
 }

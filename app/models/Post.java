@@ -24,7 +24,7 @@ public class Post extends Model{
     public User postedBy;
 
     @ManyToOne
-    public Topic topic;
+    public Problem topic;
 
     private HashSet<Long> likes;
 
@@ -35,7 +35,7 @@ public class Post extends Model{
     public int dislikesNum;
     // ~~~~~~~~~~~~ 
 
-    public Post(Topic topic, User postedBy, String content) {
+    public Post(Problem topic, User postedBy, String content) {
         this.topic = topic;
         this.postedBy = postedBy;
         this.content = content;

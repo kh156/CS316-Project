@@ -15,12 +15,12 @@ public class TopicTest extends UnitTest {
 
     @Test
     public void countObjects() {
-        assertEquals(4, Topic.count());
+        assertEquals(4, Problem.count());
     }
 
     @Test
     public void tryHelpTopic() {
-        Topic help = Topic.find("bySubject", "I need help !").first();
+        Problem help = Problem.find("bySubject", "I need help !").first();
         assertNotNull(help);
         assertEquals(3, help.posts.size());
         assertEquals(3L, (long) help.getPostsCount());
@@ -31,22 +31,22 @@ public class TopicTest extends UnitTest {
 
     @Test
     public void newTopic() {
-        Forum test = new Forum("Test", "Yop");
+        Textbook test = new Textbook("Test", "Yop");
         User guillaume = User.find("byName", "Guillaume").first();
         test.newTopic(guillaume, "Hello", "Yop ...");
         assertEquals(2L, (long) guillaume.getTopicsCount());
         assertEquals(1, test.topics.size());
         assertEquals(1, test.getTopicsCount());
-        assertEquals(5, Topic.count());
+        assertEquals(5, Problem.count());
     }
 
     @Test
     public void testCascadeDelete() {
-        Forum help = Forum.find("byName", "Play help").first();
-        assertEquals(4, Topic.count());
+        Textbook help = Textbook.find("byName", "Play help").first();
+        assertEquals(4, Problem.count());
         assertEquals(7, Post.count());
         help.delete();
-        assertEquals(1, Topic.count());
+        assertEquals(1, Problem.count());
         assertEquals(1, Post.count());
         User guillaume = User.find("byName", "Guillaume").first();
         assertEquals(0L, (long) guillaume.getTopicsCount());

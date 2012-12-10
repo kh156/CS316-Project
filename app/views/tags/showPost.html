@@ -10,7 +10,7 @@
 		<div class="arrow"></div>
 		#{if _showTopic}
 			<div class="postedIn">
-				Posted in <a href="@{Topics.show(_caller.post.topic.forum.id, _caller.post.topic.id)}">${_caller.post.topic.forum.name} - ${_caller.post.topic.subject}</a>
+				Posted in <a href="@{Problems.show(_caller.post.topic.forum.id, _caller.post.topic.id)}">${_caller.post.topic.forum.name} - ${_caller.post.topic.subject}</a>
 			</div>
 		#{/if}
 		${_arg.content.nl2br().raw()}

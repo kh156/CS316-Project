@@ -83,13 +83,13 @@ public class Application extends Controller {
         }
         connect(user);
         flash.success("Welcome back %s !", user.name);
-        Forums.index();
+        Textbooks.index();
     }
 
     public static void logout() {
         flash.success("You've been logged out");
         session.clear();
-        Forums.index();
+        Textbooks.index();
     }
 
     public static void resendConfirmation(String uuid) {
