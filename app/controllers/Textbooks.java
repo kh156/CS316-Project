@@ -3,6 +3,7 @@ package controllers;
 import java.util.*;
 
 import play.data.validation.*;
+import search.SearchUtils;
 
 import models.*;
 
@@ -16,18 +17,18 @@ public class Textbooks extends Application {
     }
     
     public static void results(String query, String category) {
-    	Set s = new HashSet();
+    	List forums = new ArrayList();
     	if (category.equals("ISBN")) {
-    		List forums = Textbook.find("byISBN", query).fetch();
+    		forums = Textbook.find("byISBN", query).fetch();
     		render(forums);
     		return;
     	} else {
     		String[] keywords = query.split("\\s+");
     		for (String key : keywords) {
-    			s.addAll(Textbook.find("by" + category + "Like", "%" + key + "%").fetch());
+    			forums.addAll(Textbook.find("by" + category + "Like", "%" + key + "%").fetch());
     		}
-    	} 
-    	List forums = new ArrayList(s);
+    	}    	    	    	
+    	forums = SearchUtils.sortByFreqs(forums);
     	render(forums);
     }
 

@@ -40,8 +40,7 @@ public class Textbook extends Model {
         this.name = name;
         this.ISBN = ISBN;
         this.author = author;
-        this.description = description;
-        computeHashCode();
+        this.description = description;        
     }
     
     
@@ -75,14 +74,10 @@ public class Textbook extends Model {
     		return o.hashCode() == hashCode;
     	}
     	return false;
-    }
-    
-    private void computeHashCode() {
-    	hashCode = Integer.parseInt(ISBN);
-    }
+    }   
     
     public int hashCode() {
-    	return hashCode;
+    	return ISBN.hashCode();
     }
 }
 
