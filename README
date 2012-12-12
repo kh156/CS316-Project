@@ -4,7 +4,100 @@ Kuang Han
 Erick Gonzalez
 Eric Hu
 
-Overall view:
-	The code follows a standard model/view/controller web framework implementation. Under the ./app folder three subfolders /models /views /controllers contain the codes for each category. The /models package has a model class (.java) for each schema in database, which is used as by the controllers as an intermediate object-oriented interface to write and query the SQL database. Each model class has a corresponding controller class (with class name in plural form) in the /controllers package. The controller classes answer web request, process backend data management and render html files to each request. The html files are stored insider /views package, under the folder corresponding to the caller controller. 
-	Under the ./conf folder, important config files are placed. /application.conf stores the main settings of the server. /init-data.yml stores some dummy data that got loaded in case that the database is empty. /routes is the specifies the routing rules that map each url request to the controller method that answer the request. All the files under ./conf are only launch-time effective and is not supposed to be modified through out the server life time.
-	The ./public folder stores front-end materials, including css style sheets and some web images.
+**************************************************************
+***                                                        ***
+***      Brief overview of how the code is structured      ***
+***                                                        *** 
+**************************************************************
+
+The code follows a standard model/view/controller web 
+framework implementation. Under the ./app folder three subfolders
+ /models /views /controllers contain the codes for each category. 
+The /models package has a model class (.java) for each schema 
+in database, which is used as by the controllers as an 
+intermediate object-oriented interface to write and query the
+SQL database. Each model class has a corresponding controller 
+class (with class name in plural form) in the /controllers 
+package. The controller classes answer web request, process 
+backend data management and render html files to each request. 
+The html files are stored insided the /views package, 
+under the folder corresponding to the caller controller. 
+Under the ./conf folder, important config files are placed. 
+/application.conf stores the main settings of the server. 
+/init-data.yml stores some dummy data that got loaded 
+in case that the database is empty. /routes is the specifies 
+the routing rules that map each url request to the controller 
+method that answer the request. All the files under ./conf 
+are only launch-time effective and is not supposed to be 
+modified through out the server life time. The ./public folder 
+stores front-end materials, including css style sheets and some 
+web images.
+
+
+**************************************************************
+***                                                        ***
+***  How to compile, set up, deploy, and use your system   ***
+***                                                        *** 
+**************************************************************
+
+1. To compile the code for our application, you must first 
+download version 1.2.5 of the Play! Framework at 
+http://www.playframework.org/download. Extract the archive 
+and you should get a directory named play-1.2.5. Make note 
+of the path to the play executable within this directory. 
+For example the path to mine would be
+/home/erick/Desktop/play-1.2.5/play
+
+2. Once you have downloaded Play!, you can download our source code at 
+https://github.com/kh156/CS316-Project, or alternatively, you can just 
+unzip the .tar.gz archive of our source code. Once you have extracted 
+the archive, you should then have a directory named CS316-Project. 
+cd into this directory.
+
+3. Once the project folder is established as the current directory, 
+the command /path/to/play-1.2.5/play run will compile all of the code
+and will simultaneously run the server. For example, to run the server
+I would enter /home/erick/Desktop/play-1.2.5/play run. 
+
+4. If the command was successfuly, you should see the the following text
+
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! 1.2.5, http://www.playframework.org
+~
+~ Ctrl+C to stop
+~ 
+CompilerOracle: exclude jregex/Pretokenizer.next
+Listening for transport dt_socket at address: 8000
+01:29:04,702 INFO  ~ Starting /home/erick/projects/CS316-Project
+01:29:05,395 WARN  ~ You're running Play! in DEV mode
+01:29:05,477 INFO  ~ Listening for HTTP on port 9100 (Waiting a first request to start) ...
+
+5. To access the website, type localhost:9100 into your browser.
+
+**************************************************************
+***                                                        ***
+***         Limitations in current implementation          ***
+***                                                        *** 
+**************************************************************
+
+1) Our search functionality could certainly be improved. 
+Currently, when searching, a user must specify the field
+by which he would like to search for a textbook e.g.
+ISBN, Title, or Author. I think it would be simpler to make
+it so that the user can simply enter either of the three fields
+and the search engine can intelligently determine which fields
+to search for. Additionally, implementing an auto-complete feature
+would have been a nice addition as well. Finally, a more
+intelligent search algorithm could have been used. Currently,
+the search algorithm ranks each textbook search result by
+the amount of search keywords that are substrings of 
+the textbook title or author name.
+
+2) One limitation that also exists on the user experience side
+is that users are not able to insert mathematical formulas or
+source code for answers that may require such things.
