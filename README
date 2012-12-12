@@ -1,0 +1,10 @@
+CS316-Project
+
+Kuang Han
+Erick Gonzalez
+Eric Hu
+
+Overall view:
+	The code follows a standard model/view/controller web framework implementation. Under the ./app folder three subfolders /models /views /controllers contain the codes for each category. The /models package has a model class (.java) for each schema in database, which is used as by the controllers as an intermediate object-oriented interface to write and query the SQL database. Each model class has a corresponding controller class (with class name in plural form) in the /controllers package. The controller classes answer web request, process backend data management and render html files to each request. The html files are stored insider /views package, under the folder corresponding to the caller controller. 
+	Under the ./conf folder, important config files are placed. /application.conf stores the main settings of the server. /init-data.yml stores some dummy data that got loaded in case that the database is empty. /routes is the specifies the routing rules that map each url request to the controller method that answer the request. All the files under ./conf are only launch-time effective and is not supposed to be modified through out the server life time.
+	The ./public folder stores front-end materials, including css style sheets and some web images.
