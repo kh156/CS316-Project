@@ -9,11 +9,11 @@ import models.*;
 
 public class Textbooks extends Application {
 
-    public static void index() { 
-        List forums = Textbook.findAll();
-        long topicsCount = Problem.count();
-        long postsCount = Post.count();
-        render(forums, topicsCount, postsCount);
+    public static void index(Integer page) { 
+        if (page == null) page = 1;
+        List forums = Textbook.find("ISBN > ?", "").fetch(page, pageSize);
+        long textbooksCount = Textbook.count();
+        render(forums, textbooksCount, page);
     }
     
     public static void results(String query, String category) {
@@ -38,11 +38,11 @@ public class Textbooks extends Application {
             validation.keep();
             params.flash();
             flash.error("Please correct these errors !");
-            index();
+            index(null);
         }
         Textbook forum = new Textbook(name, ISBN, author, description);
         forum.save();
-        index();
+        index(null);
     }
 
     @Secure(admin = true)
@@ -56,7 +56,7 @@ public class Textbooks extends Application {
         Textbook forum = Textbook.findById(forumId);
         forum.update(name, ISBN, author, description);
         forum.save();
-        index();
+        index(null);
     }
     
     public static void show(Long forumId, Integer page) {
@@ -71,7 +71,7 @@ public class Textbooks extends Application {
         notFoundIfNull(forum);
         forum.delete();
         flash.success("The forum has been deleted");
-        index();
+        index(null);
     }
     
     @Secure(admin = true)

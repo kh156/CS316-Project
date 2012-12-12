@@ -59,6 +59,11 @@ public class Textbook extends Model {
         return Post.count("topic.forum", this);
     }
 
+    public static List<Textbook> getTextbooks(int page, int pageSize) {
+        List<Textbook> list = Textbook.find("ISBN > ?", "").fetch(page, pageSize);
+        return list;
+    }
+    
     public List<Problem> getTopics(int page, int pageSize) {
         List<Problem> list = Problem.find("forum = ? order by sectionIdx, problemIdx", this).fetch(page, pageSize); 
 //        Collections.sort(list);

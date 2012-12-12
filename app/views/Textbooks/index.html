@@ -7,6 +7,8 @@
 	</strong>
 </p>
 
+#{pagination page:page ?: 1, size:textbooksCount /}
+
 <table id="forums-list">
 	<thead>
 		<tr>
@@ -19,7 +21,6 @@
 			<td class="main">
 				<a href="@{Textbooks.show(forum.id)}">${forum.name}</a>
 				<p class="light">
-<!--  					#{pluralize size:forum.postsCount, word:'post' /}  -->
 					ISBN: ${forum.ISBN} <br>
 					Author: ${forum.author}
 				</p>
